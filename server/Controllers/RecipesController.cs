@@ -1,4 +1,4 @@
-namespace all_state.controllers;
+namespace all_state.Controllers;
 
 
 [ApiController]
@@ -8,6 +8,19 @@ namespace all_state.controllers;
 public class RecipesController : ControllerBase
 {
 
+  private readonly RecipesService _recipesService;
+  private readonly Auth0Provider _auth;
+
+  public RecipesController(Auth0Provider auth)
+  {
+    _auth = auth;
+  }
+
+  public RecipesController(RecipesService recipesService)
+  {
+    _recipesService = recipesService;
+
+  }
 
 
 
