@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "all_state", "server\all_state.csproj", "{9539859A-5577-680D-8D76-F1389176F240}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "all_state", "all_state.csproj", "{9539859A-5577-680D-8D76-F1389176F240}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
