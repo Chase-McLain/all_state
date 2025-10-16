@@ -1,3 +1,3 @@
-export const domain = ''
-export const clientId = ''
-export const audience = ''
+export const domain = 'dev-gdmi1jflr5z60pgv.us.auth0.com'
+export const clientId = '5fFnhGltXZVbQ73tZa24zPc5wQOQ0jDY'
+export const audience = 'https://Auth.bigratfoundation.com'
