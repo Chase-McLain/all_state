@@ -1,4 +1,5 @@
 
+
 namespace all_state.Repositories;
 
 
@@ -37,6 +38,7 @@ public class RecipesRepository(IDbConnection db)
     return recipes;
   }
 
+
   public Recipe GetRecipeById(int recipeId)
   {
     string sql = @"SELECT recipes.*, accounts.*
@@ -48,4 +50,26 @@ public class RecipesRepository(IDbConnection db)
 
     return recipe;
   }
+
+
+  public void UpdateRecipe(Recipe recipe)
+  {
+    string sql = @"UPDATE recipes
+    SET
+    title = @Title,
+    instructions = @Instructions,
+    img = @Img,
+    category = @Category
+    WHERE id = @Id
+    LIMIT 1;";
+
+    int rows = _db.Execute(sql, recipe);
+
+    if (rows != 1)
+    {
+      throw new Exception("Machine broke");
+    }
+  }
+
+
 }
