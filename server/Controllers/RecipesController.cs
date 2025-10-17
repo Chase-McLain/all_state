@@ -27,7 +27,7 @@ public class RecipesController : ControllerBase
     }
     catch (Exception exception)
     {
-      return BadRequest(exception);
+      return BadRequest(exception.Message);
     }
   }
 
