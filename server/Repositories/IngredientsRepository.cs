@@ -1,4 +1,6 @@
 
+
+
 namespace all_state.Repositories;
 
 
@@ -31,5 +33,27 @@ public class IngredientsRepository(IDbConnection db)
     List<Ingredient> ingredients = _db.Query<Ingredient>(sql, new { recipeId }).ToList();
 
     return ingredients;
+  }
+
+  public Ingredient GetIngredientById(int ingredientId)
+  {
+    string sql = @"SELECT * FROM ingredients
+      WHERE ingredients.id = @ingredientId;";
+
+    Ingredient ingredient = _db.Query<Ingredient>(sql, new { ingredientId }).SingleOrDefault();
+
+    return ingredient;
+  }
+
+  internal void DeleteIngredient(int ingredientId)
+  {
+    string sql = @"DELETE FROM ingredients WHERE ingredients.id = @ingredientId LIMIT 1;";
+
+    int rows = _db.Execute(sql, new { ingredientId });
+
+    if (rows != 1)
+    {
+      throw new Exception("Machine broke.");
+    }
   }
 }

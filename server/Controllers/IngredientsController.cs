@@ -35,7 +35,21 @@ public class IngredientsController : ControllerBase
   }
 
 
-
+  [HttpDelete("{ingredientId}")]
+  [Authorize]
+  public async Task<ActionResult<string>> DeleteIngredient(int ingredientId)
+  {
+    try
+    {
+      Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+      _ingredientsService.DeleteIngredient(ingredientId, userInfo.Id);
+      return Ok("Ingredient has perished.");
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
 
 
 }

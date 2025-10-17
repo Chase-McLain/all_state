@@ -33,4 +33,26 @@ public class IngredientsService
   }
 
 
+  private Ingredient GetIngredientById(int ingredientId)
+  {
+    Ingredient ingredient = _ingredientsRepository.GetIngredientById(ingredientId);
+    if (ingredient == null)
+    {
+      throw new Exception("No such ingredient exists");
+    }
+    return ingredient;
+  }
+
+  public void DeleteIngredient(int ingredientId, string userId)
+  {
+    Ingredient ingredient = GetIngredientById(ingredientId);
+    Recipe recipe = _recipesService.GetRecipeById(ingredient.RecipeId);
+    if (recipe.CreatorId != userId)
+    {
+      throw new Exception("This ain't be belonging to you. Don't touch it.");
+    }
+    _ingredientsRepository.DeleteIngredient(ingredientId);
+  }
+
+
 }

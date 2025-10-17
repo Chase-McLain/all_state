@@ -1,26 +1,22 @@
 namespace all_state.Controllers;
 
 
-
-
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/favorites")]
+
 
 public class FavoritesController : ControllerBase
 {
-
   private readonly Auth0Provider _auth;
   private readonly FavoritesService _favoritesService;
 
-  public FavoritesController(FavoritesService favoritesService)
+  public FavoritesController(FavoritesService favoritesService, Auth0Provider auth)
   {
     _favoritesService = favoritesService;
-  }
-
-  public FavoritesController(Auth0Provider auth)
-  {
     _auth = auth;
   }
+
+
 
 
 
