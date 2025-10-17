@@ -1,19 +1,12 @@
-
 namespace all_state.Repositories;
 
 
-
-public class RecipesRepository
+public class RecipesRepository(IDbConnection db)
 {
+  private readonly IDbConnection _db = db;
 
-  private readonly IDbConnection _db;
 
-  public RecipesRepository(IDbConnection db)
-  {
-    _db = db;
-  }
-
-  public Recipe createRecipe(Recipe recipeData)
+  public Recipe CreateRecipe(Recipe recipeData)
   {
     string sql = @"
       INSERT INTO recipes
@@ -23,12 +16,24 @@ public class RecipesRepository
 
       SELECT recipes.*, accounts.*
       FROM recipes
-      JOIN accounts ON accounts.id = recipes.creator_id
-      WHERE recipes.id = LAST_INSERT_ID()
-      ;";
+      INNER JOIN accounts ON accounts.id = recipes.creator_id
+      WHERE recipes.id = LAST_INSERT_ID();";
 
     Recipe recipe = _db.Query(sql, (Recipe recipe, Profile account) => { recipe.Creator = account; return recipe; }, recipeData).SingleOrDefault();
 
     return recipe;
+  }
+
+
+  public List<Recipe> GetRecipes()
+  {
+    string sql = @"SELECT recipes.*, accounts.*
+      FROM recipes
+      INNER JOIN accounts ON accounts.id = recipes.creator_id
+      WHERE recipes.creator_id = accounts.id;";
+
+    List<Recipe> recipes = _db.Query(sql, (Recipe recipe, Profile account) => { recipe.Creator = account; return recipe; }).ToList();
+
+    return recipes;
   }
 }

@@ -1,23 +1,26 @@
 
+
 namespace all_state.Services;
 
 
 
 
-public class RecipesService
+public class RecipesService(RecipesRepository recipesRepository)
 {
+  private readonly RecipesRepository _recipesRepository = recipesRepository;
 
-  private readonly RecipesRepository _recipesRepository;
 
-  public RecipesService(RecipesRepository recipesRepository)
+  public Recipe CreateRecipe(Recipe recipeData)
   {
-    _recipesRepository = recipesRepository;
+    Recipe recipe = _recipesRepository.CreateRecipe(recipeData);
+    return recipe;
   }
 
-  public Recipe createRecipe(Recipe recipeData)
+
+  public List<Recipe> GetRecipes()
   {
-    Recipe recipe = _recipesRepository.createRecipe(recipeData);
-    return recipe;
+    List<Recipe> recipes = _recipesRepository.GetRecipes();
+    return recipes;
   }
 }
 
