@@ -1,3 +1,4 @@
+
 namespace all_state.Services;
 
 
@@ -13,11 +14,11 @@ public class RecipesService
     _recipesRepository = recipesRepository;
   }
 
-
-
-
-
-
+  public Recipe createRecipe(Recipe recipeData)
+  {
+    Recipe recipe = _recipesRepository.createRecipe(recipeData);
+    return recipe;
+  }
 }
 
 

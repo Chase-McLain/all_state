@@ -2,25 +2,14 @@ namespace all_state.Controllers;
 
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/recipes")]
 
 
-public class RecipesController : ControllerBase
+public class RecipesController(RecipesService recipesService, Auth0Provider auth) : ControllerBase
 {
 
-  private readonly RecipesService _recipesService;
-  private readonly Auth0Provider _auth;
-
-  public RecipesController(Auth0Provider auth)
-  {
-    _auth = auth;
-  }
-
-  public RecipesController(RecipesService recipesService)
-  {
-    _recipesService = recipesService;
-
-  }
+  private readonly RecipesService _recipesService = recipesService;
+  private readonly Auth0Provider _auth = auth;
 
 
 
@@ -39,7 +28,21 @@ public class RecipesController : ControllerBase
   // }
 
 
-
+  [HttpPost]
+  async public Task<ActionResult<Recipe>> createRecipe([FromBody] Recipe recipeData)
+  {
+    try
+    {
+      Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+      recipeData.CreatorId = userInfo.Id;
+      Recipe recipe = _recipesService.createRecipe(recipeData);
+      return recipe;
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
 
 
 
