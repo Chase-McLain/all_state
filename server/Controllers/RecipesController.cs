@@ -23,11 +23,26 @@ public class RecipesController : ControllerBase
     try
     {
       List<Recipe> recipes = _recipesService.GetRecipes();
-      return recipes;
+      return Ok(recipes);
     }
     catch (Exception exception)
     {
       return BadRequest(exception);
+    }
+  }
+
+
+  [HttpGet("{recipeId}")]
+  public ActionResult<Recipe> GetRecipeById(int recipeId)
+  {
+    try
+    {
+      Recipe recipe = _recipesService.GetRecipeById(recipeId);
+      return Ok(recipe);
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
     }
   }
 

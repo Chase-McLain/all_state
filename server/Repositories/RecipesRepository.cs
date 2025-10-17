@@ -1,3 +1,4 @@
+
 namespace all_state.Repositories;
 
 
@@ -29,11 +30,22 @@ public class RecipesRepository(IDbConnection db)
   {
     string sql = @"SELECT recipes.*, accounts.*
       FROM recipes
-      INNER JOIN accounts ON accounts.id = recipes.creator_id
-      WHERE recipes.creator_id = accounts.id;";
+      INNER JOIN accounts ON accounts.id = recipes.creator_id";
 
     List<Recipe> recipes = _db.Query(sql, (Recipe recipe, Profile account) => { recipe.Creator = account; return recipe; }).ToList();
 
     return recipes;
+  }
+
+  public Recipe GetRecipeById(int recipeId)
+  {
+    string sql = @"SELECT recipes.*, accounts.*
+      FROM recipes
+      INNER JOIN accounts ON accounts.id = recipes.creator_id
+      WHERE recipes.id = @recipeId;";
+
+    Recipe recipe = _db.Query(sql, (Recipe recipe, Profile account) => { recipe.Creator = account; return recipe; }, new { recipeId }).SingleOrDefault();
+
+    return recipe;
   }
 }

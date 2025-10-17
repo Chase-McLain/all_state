@@ -1,5 +1,6 @@
 
 
+
 namespace all_state.Services;
 
 
@@ -21,6 +22,13 @@ public class RecipesService(RecipesRepository recipesRepository)
   {
     List<Recipe> recipes = _recipesRepository.GetRecipes();
     return recipes;
+  }
+
+
+  public Recipe GetRecipeById(int recipeId)
+  {
+    Recipe recipe = _recipesRepository.GetRecipeById(recipeId);
+    return recipe;
   }
 }
 
