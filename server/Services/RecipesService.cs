@@ -1,10 +1,4 @@
-
-
-
-
 namespace all_state.Services;
-
-
 
 
 public class RecipesService(RecipesRepository recipesRepository)
@@ -36,6 +30,7 @@ public class RecipesService(RecipesRepository recipesRepository)
     return recipe;
   }
 
+
   public Recipe UpdateRecipe(Recipe recipeData, string userId, int recipeId)
   {
     Recipe recipe = GetRecipeById(recipeId);
@@ -50,6 +45,7 @@ public class RecipesService(RecipesRepository recipesRepository)
     _recipesRepository.UpdateRecipe(recipe);
     return recipe;
   }
+
 
   public void DeleteRecipe(int recipeId, string userId)
   {

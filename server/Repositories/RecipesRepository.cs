@@ -1,5 +1,3 @@
-
-
 namespace all_state.Repositories;
 
 
@@ -71,6 +69,7 @@ public class RecipesRepository(IDbConnection db)
     }
   }
 
+
   public void DeleteRecipe(int recipeId)
   {
     string sql = @"DELETE FROM recipes WHERE recipes.id = @recipeId LIMIT 1;";
@@ -82,4 +81,6 @@ public class RecipesRepository(IDbConnection db)
       throw new Exception("Machine broke.");
     }
   }
+
+
 }
