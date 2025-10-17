@@ -9,10 +9,12 @@ public class RecipesController : ControllerBase
 {
   private readonly RecipesService _recipesService;
   private readonly Auth0Provider _auth;
+  private readonly IngredientsService _ingredientsService;
 
-  public RecipesController(RecipesService recipesService, Auth0Provider auth)
+  public RecipesController(RecipesService recipesService, Auth0Provider auth, IngredientsService ingredientsService)
   {
     _recipesService = recipesService;
+    _ingredientsService = ingredientsService;
     _auth = auth;
   }
 
@@ -91,6 +93,21 @@ public class RecipesController : ControllerBase
       Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
       _recipesService.DeleteRecipe(recipeId, userInfo.Id);
       return Ok("Recipe has perished.");
+    }
+    catch (Exception exception)
+    {
+      return BadRequest(exception.Message);
+    }
+  }
+
+
+  [HttpGet("{recipeId}/ingredients")]
+  public ActionResult<List<Ingredient>> GetIngredientsByRecipeId(int recipeId)
+  {
+    try
+    {
+      List<Ingredient> ingredients = _ingredientsService.GetIngredientsByRecipeId(recipeId);
+      return ingredients;
     }
     catch (Exception exception)
     {
