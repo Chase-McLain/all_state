@@ -67,9 +67,19 @@ public class RecipesRepository(IDbConnection db)
 
     if (rows != 1)
     {
-      throw new Exception("Machine broke");
+      throw new Exception("Machine broke.");
     }
   }
 
+  public void DeleteRecipe(int recipeId)
+  {
+    string sql = @"DELETE FROM recipes WHERE recipes.id = @recipeId LIMIT 1;";
 
+    int rows = _db.Execute(sql, new { recipeId });
+
+    if (rows != 1)
+    {
+      throw new Exception("Machine broke.");
+    }
+  }
 }

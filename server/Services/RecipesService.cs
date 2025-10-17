@@ -29,6 +29,10 @@ public class RecipesService(RecipesRepository recipesRepository)
   public Recipe GetRecipeById(int recipeId)
   {
     Recipe recipe = _recipesRepository.GetRecipeById(recipeId);
+    if (recipe == null)
+    {
+      throw new Exception("No such recipe exists.");
+    }
     return recipe;
   }
 
@@ -46,6 +50,18 @@ public class RecipesService(RecipesRepository recipesRepository)
     _recipesRepository.UpdateRecipe(recipe);
     return recipe;
   }
+
+  public void DeleteRecipe(int recipeId, string userId)
+  {
+    Recipe recipe = GetRecipeById(recipeId);
+    if (recipe.CreatorId != userId)
+    {
+      throw new Exception("This ain't be belonging to you. Don't touch it.");
+    }
+    _recipesRepository.DeleteRecipe(recipe.Id);
+  }
+
+
 }
 
 
