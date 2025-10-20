@@ -1,4 +1,6 @@
 
+
+
 namespace all_state.Repositories;
 
 
@@ -43,5 +45,23 @@ public class FavoritesRepository(IDbConnection db)
     List<FavoriteRecpie> favorites = _db.Query(sql, (FavoriteRecpie favorite, Profile account) => { favorite.Creator = account; return favorite; }, new { userId }).ToList();
 
     return favorites;
+  }
+
+  public Favorite GetFavoritesById(int favoriteId)
+  {
+    string sql = @"SELECT * FROM favorites
+      WHERE favorites.id = @favoriteId;";
+
+    Favorite favorite = _db.Query<Favorite>(sql, new { favoriteId }).SingleOrDefault();
+
+    return favorite;
+  }
+
+  public void DeleteFavorite(int favoriteId)
+  {
+    string sql = @"DELETE FROM favorites
+      WHERE favorites.id = @favoriteID LIMIT 1;";
+
+    _db.Execute(sql, new { favoriteId });
   }
 }
