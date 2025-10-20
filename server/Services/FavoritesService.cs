@@ -1,3 +1,4 @@
+
 namespace all_state.Services;
 
 
@@ -17,5 +18,9 @@ public class FavoritesService
     return favorite;
   }
 
-
+  public List<FavoriteRecpie> GetFavoritesByAccountId(string userId)
+  {
+    List<FavoriteRecpie> favorites = _favoritesRepository.GetFavoritesByAccountId(userId);
+    return favorites;
+  }
 }
