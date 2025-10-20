@@ -8,5 +8,17 @@ public class Favorite
   public DateTime CreatedAt { get; set; }
   public DateTime UpdatedAt { get; set; }
   public int RecipeId { get; set; }
-  public int AccountId { get; set; }
+  public string AccountId { get; set; }
+}
+
+public class FavoriteProfile : Profile
+{
+  public int FavoriteId { get; set; }
+  public int RecipeId { get; set; }
+}
+
+public class FavoriteRecpie : Recipe
+{
+  public string AccountId { get; set; }
+  public int FavoriteId { get; set; }
 }

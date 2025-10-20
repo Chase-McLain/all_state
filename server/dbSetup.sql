@@ -45,4 +45,10 @@ CREATE TABLE favorites (
     FOREIGN KEY (account_id) REFERENCES accounts (id) ON DELETE CASCADE
 );
 
+SELECT recipes.*, favorites.account_id AS account_id, favorites.id AS favorite_id, accounts.*
+FROM
+    favorites
+    INNER JOIN recipes ON favorites.recipe_id = recipes.id
+    INNER JOIN accounts ON favorites.account_id = accounts.id;
+
 DROP TABLE recipes;
