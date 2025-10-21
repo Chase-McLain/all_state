@@ -17,35 +17,33 @@ watch(theme, () => {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-md bg-codeworks border-bottom border-vue">
-    <div class="container gap-2">
-      <RouterLink :to="{ name: 'Home' }" class="d-flex align-items-center text-light">
-        <img class="navbar-brand" alt="logo" src="/img/cw-logo.png" height="45" />
-        <b class="fs-5">Vue Starter</b>
-      </RouterLink>
-      <!-- collapse button -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-links"
-        aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="mdi mdi-menu text-light"></span>
-      </button>
-      <!-- collapsing menu -->
-      <div class="collapse navbar-collapse " id="navbar-links">
-        <ul class="navbar-nav">
-          <li>
-            <RouterLink :to="{ name: 'About' }" class="btn text-green selectable">
-              About
-            </RouterLink>
-          </li>
-        </ul>
-        <!-- LOGIN COMPONENT HERE -->
-        <div class="ms-auto">
-          <button class="btn text-light" @click="toggleTheme"
-            :title="`Enable ${theme == 'light' ? 'dark' : 'light'} theme.`">
-            <i v-if="theme == 'dark'" class="mdi mdi-weather-sunny"></i>
-            <i v-if="theme == 'light'" class="mdi mdi-weather-night"></i>
-          </button>
+  <nav class="">
+    <div class="container-fuid p-5">
+      <div class="navbar-bg-img row">
+        <div class="col-md-11 text-end text-white">
+          <h5 class="mt-1">SEARCH BAR HERE</h5>
         </div>
-        <Login />
+        <div class="col-md-1 text-end mt-1">
+          <Login />
+        </div>
+        <div class="col-12 text-center text-white logo-section">
+          <RouterLink :to="{ name: 'Home' }" class="">
+            <img class="all-state" src="../assets/img/Allstate-Logo.png" alt="all state logo">
+          </RouterLink>
+          <p class="mb-0 mt-2">Cherish Your Hands</p>
+          <p class="mb-5">And Their Insurance</p>
+        </div>
+      </div>
+      <div class="row justify-content-center position-relative">
+        <div class="col-6 bg-white mini-nav">
+          <span class="d-flex gap-5 justify-content-evenly text-center text-success">
+            <RouterLink :to="{ name: 'Home' }" class="">
+              <h5>Home</h5>
+            </RouterLink>
+            <h5>My Recipes</h5>
+            <h5>Favorites</h5>
+          </span>
+        </div>
       </div>
     </div>
   </nav>
@@ -54,15 +52,29 @@ watch(theme, () => {
 <style lang="scss" scoped>
 a {
   text-decoration: none;
+  color: unset;
 }
 
-.nav-link {
-  text-transform: uppercase;
+.navbar-bg-img {
+  background-image: url(../assets/img/navbar.png);
+  background-position: center;
+  background-size: cover;
+  box-shadow: 0px 2px 10px;
 }
 
-.navbar-nav .router-link-exact-active {
-  border-bottom: 2px solid var(--bs-success);
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+.all-state {
+  object-fit: cover;
+  object-position: center;
+  max-height: 150px;
+}
+
+.logo-section {
+  text-shadow: 0px 2px 2px black;
+}
+
+.mini-nav {
+  position: absolute;
+  top: -20px;
+  box-shadow: 0px 2px 4px;
 }
 </style>
