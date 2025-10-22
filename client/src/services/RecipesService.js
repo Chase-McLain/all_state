@@ -6,6 +6,9 @@ import { Recipe } from "@/models/Recipe.js"
 
 
 class RecipesService{
+  async deleteRecipe(recipeId) {
+    const response = await api.delete(`api/recipes/${recipeId}`)
+  }
 
 
   async getRecipeById(recipeId) {

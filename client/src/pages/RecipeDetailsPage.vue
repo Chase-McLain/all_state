@@ -5,7 +5,7 @@ import { recipesService } from '@/services/RecipesService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
 import { computed, onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 onMounted(() => {
   getRecipeById()
@@ -13,7 +13,9 @@ onMounted(() => {
 })
 
 const route = useRoute()
+const router = useRouter()
 const recipe = computed(() => AppState.recipe)
+const ingredients = computed(() => AppState.ingredients)
 
 
 async function getRecipeById() {
@@ -29,6 +31,20 @@ async function getRecipeById() {
 async function getIngredientsByRecipe() {
   try {
     await ingredientsService.getIngredientsByRecipe(route.params.recipeId)
+  }
+  catch (error) {
+    Pop.error(error);
+  }
+}
+
+async function deleteRecipe() {
+  const confirmed = await Pop.confirm(`Are you sure you wish to delete ${recipe.value.title}?`)
+  if (!confirmed) {
+    return
+  }
+  try {
+    await recipesService.deleteRecipe(route.params.recipeId)
+    router.push({ name: 'Home' })
   }
   catch (error) {
     Pop.error(error);
@@ -61,6 +77,23 @@ async function getIngredientsByRecipe() {
         <section class="row">
           <div class="col-md-12">
             <h3>Ingredients</h3>
+            <p v-for="ingredient in ingredients" :key="'ingredients' + ingredient.id">{{ ingredient.name }}</p>
+          </div>
+        </section>
+        <section class="row">
+          <div class="col-md-12">
+            <h3>Instructions</h3>
+            <p>{{ recipe.instructions }}</p>
+          </div>
+        </section>
+        <section class="row">
+          <div class="col-md-12 button-zone text-end">
+            <button class="btn btn-success">
+              Edit <i class="mdi mdi-pencil-plus"></i>
+            </button>
+            <button @click="deleteRecipe()" class="btn btn-danger ms-2">
+              DELETE <i class="mdi mdi-trash-can"></i>
+            </button>
           </div>
         </section>
       </div>
@@ -90,5 +123,9 @@ a {
   color: white;
   max-width: 5rem;
   border-radius: 10px;
+}
+
+.button-zone {
+  flex-grow: 1;
 }
 </style>

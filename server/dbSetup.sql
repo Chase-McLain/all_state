@@ -52,3 +52,7 @@ FROM
     INNER JOIN accounts ON favorites.account_id = accounts.id;
 
 DROP TABLE recipes;
+
+DROP TABLE ingredients;
+
+DROP TABLE favorites;
