@@ -18,7 +18,7 @@ watch(theme, () => {
 
 <template>
   <nav class="">
-    <div class="container-fuid p-5">
+    <div class="container-fuid px-5 pt-3">
       <div class="navbar-bg-img row">
         <div class="col-md-11 text-end text-white">
           <h5 class="mt-1">SEARCH BAR HERE</h5>
@@ -57,7 +57,7 @@ a {
 
 .navbar-bg-img {
   background-image: url(../assets/img/navbar.png);
-  background-position: center;
+  background-position: top;
   background-size: cover;
   box-shadow: 0px 2px 10px;
 }

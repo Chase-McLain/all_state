@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import Navbar from '@/components/Navbar.vue';
 import RecipeCard from '@/components/RecipeCard.vue';
 import { recipesService } from '@/services/RecipesService.js';
 import { logger } from '@/utils/Logger.js';
@@ -31,13 +32,21 @@ async function getRecipes() {
 </script>
 
 <template>
-  <main class="container">
-    <section class="row">
-      <div v-for="recipe in recipes" :key="'recipe' + recipe.id" class="col-md-4">
+  <header>
+    <Navbar />
+  </header>
+  <main class="container-fluid">
+    <section class="row mt-5 gap-1 justify-content-evenly">
+      <div v-for="recipe in recipes" :key="'recipe' + recipe.id" class="col-md-3">
         <RecipeCard :recipe="recipe" />
       </div>
     </section>
   </main>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.a {
+  text-decoration: unset;
+  color: unset;
+}
+</style>
