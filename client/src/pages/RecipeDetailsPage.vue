@@ -1,5 +1,6 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { ingredientsService } from '@/services/IngredientsService.js';
 import { recipesService } from '@/services/RecipesService.js';
 import { logger } from '@/utils/Logger.js';
 import { Pop } from '@/utils/Pop.js';
@@ -27,7 +28,7 @@ async function getRecipeById() {
 
 async function getIngredientsByRecipe() {
   try {
-    // await 
+    await ingredientsService.getIngredientsByRecipe(route.params.recipeId)
   }
   catch (error) {
     Pop.error(error);
