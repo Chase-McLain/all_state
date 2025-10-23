@@ -1,5 +1,7 @@
 <script setup>
 import { AppState } from '@/AppState.js';
+import { Account } from '@/models/Account.js';
+import { favoritesService } from '@/services/FavoritesService.js';
 import { ingredientsService } from '@/services/IngredientsService.js';
 import { recipesService } from '@/services/RecipesService.js';
 import { logger } from '@/utils/Logger.js';
@@ -10,10 +12,12 @@ import { useRoute, useRouter } from 'vue-router';
 onMounted(() => {
   getRecipeById()
   getIngredientsByRecipe()
+  getFavoritesByRecipe()
 })
 
 const route = useRoute()
 const router = useRouter()
+const account = computed(() => AppState.account)
 const recipe = computed(() => AppState.recipe)
 const ingredients = computed(() => AppState.ingredients)
 
@@ -48,6 +52,16 @@ async function deleteRecipe() {
   }
   catch (error) {
     Pop.error(error);
+  }
+}
+
+async function getFavoritesByRecipe() {
+  try {
+    await favoritesService.getFavoritesByRecipe(route.params.recipeId)
+  }
+  catch (error) {
+    Pop.error(error);
+    logger.error(error)
   }
 }
 
@@ -88,10 +102,10 @@ async function deleteRecipe() {
         </section>
         <section class="row">
           <div class="col-md-12 button-zone text-end">
-            <button class="btn btn-success">
+            <button v-if="account?.id == recipe.creatorId" class="btn btn-success">
               Edit <i class="mdi mdi-pencil-plus"></i>
             </button>
-            <button @click="deleteRecipe()" class="btn btn-danger ms-2">
+            <button v-if="account?.id == recipe.creatorId" @click="deleteRecipe()" class="btn btn-danger ms-2">
               DELETE <i class="mdi mdi-trash-can"></i>
             </button>
           </div>

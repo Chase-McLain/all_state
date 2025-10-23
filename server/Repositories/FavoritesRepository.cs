@@ -1,6 +1,7 @@
 
 
 
+
 namespace all_state.Repositories;
 
 
@@ -63,5 +64,15 @@ public class FavoritesRepository(IDbConnection db)
       WHERE favorites.id = @favoriteID LIMIT 1;";
 
     _db.Execute(sql, new { favoriteId });
+  }
+
+  public List<Favorite> GetFavoritesByRecipeId(int recipeId)
+  {
+    string sql = @"SELECT * FROM favorites
+      WHERE favorites.recipe_id = @recipeId;";
+
+    List<Favorite> favorites = _db.Query<Favorite>(sql, new { recipeId }).ToList();
+
+    return favorites;
   }
 }

@@ -44,4 +44,10 @@ public class FavoritesService
     }
     _favoritesRepository.DeleteFavorite(favoriteId);
   }
+
+  public List<Favorite> GetFavoritesByRecipeId(int recipeId)
+  {
+    List<Favorite> favorites = _favoritesRepository.GetFavoritesByRecipeId(recipeId);
+    return favorites;
+  }
 }
