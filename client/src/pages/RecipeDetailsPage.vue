@@ -20,6 +20,7 @@ const router = useRouter()
 const account = computed(() => AppState.account)
 const recipe = computed(() => AppState.recipe)
 const ingredients = computed(() => AppState.ingredients)
+const favorite = computed(() => AppState.favorites)
 
 
 async function getRecipeById() {
